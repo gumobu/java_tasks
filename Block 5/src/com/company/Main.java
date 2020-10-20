@@ -1,6 +1,9 @@
 package com.company;
 
+import com.sun.source.tree.BreakTree;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,9 +12,11 @@ public class Main {
 //        System.out.println("Результат 5.2: " + canMove52(in));
 //        System.out.println("Результат 5.3: " + canComplete53(in));
 //        System.out.println("Результат 5.4: " + sumDigProd54(in));
+//        System.out.println("Результат 5.5: " + sameVowelGroup55(in));
 //        System.out.println("Результат 5.6: " + validateCard56(in));
 //        System.out.println("Результат 5.7:\n" + numToEng57(in));
 //        System.out.println("Результат 5.9:\n" + correctTitle59(in));
+        System.out.println("Результат 5.10:\n" + hexLattice510(in));
         in.close();
     }
 
@@ -59,6 +64,47 @@ public class Main {
         }
         return finalString.matches(matcher.toString());
     }
+
+    public static int sumDigProd54(Scanner scanner){
+        System.out.println("Задача 5.4\nВведите числа, разделяя их пробелами");
+        /*Ввод чисел в строку*/
+        String inputString = scanner.nextLine();
+        int[] numbers = new int[inputString.split(" ").length];
+        /*Заполнение массива целочисленными данными*/
+        for (int counter = 0; counter < inputString.split(" ").length; counter++){
+            numbers[counter] = Integer.parseInt(inputString.split(" ")[counter]);
+        }
+        /*нахождение суммы цифр*/
+        int sum = 0;
+        for (int element:numbers){
+            sum += element;
+        }
+        int buf = sum;
+        while (buf > 9){
+            /*Нахождение произведения цифр*/
+            sum = 1;
+            while (buf / 10 > 0){
+                sum *= buf % 10;
+                buf /= 10;
+            }
+            sum *= buf;
+            buf = sum;
+        }
+        return sum;
+    }
+
+//    public static String sameVowelGroup55(Scanner scanner){
+//        System.out.println("Задача 5.5\nВведите слова для поиска одинаковых гласных, разделяя их пробелами");
+//        String[] words = scanner.nextLine().trim().split(" ");
+//        ArrayList<String> res = new ArrayList<>();
+//        res.add(words[0]);
+//        for (int count = 1; count < words.length; count++){
+//            if (){
+//
+//            }
+//        }
+//        return res.toString();
+//    }
 
     public static boolean validateCard56(Scanner scanner) {
         System.out.println("Задача 5.6\nВведите номер карты для проверки на валидность");
@@ -265,5 +311,32 @@ public class Main {
             }
         }
         return correctTitle.toString();
+    }
+
+    public static String hexLattice510(Scanner scanner){
+        System.out.println("Задача 5.10\nВведите число для проверки его на гексагональность");
+        int inputNum = scanner.nextInt();
+        StringBuilder res = new StringBuilder();
+        if (inputNum > 0){
+            int buf = inputNum - 1;
+            int count = 0;
+            while (buf > 0){
+                count += 1;
+                buf -= 6 * count;
+            }
+            if (buf == 0){
+                for (int counter = count + 1; counter < 2 * count + 1; counter++){
+                    res.append("\t").append("\s".repeat(2 * count + 1 - counter)).append("o\s".repeat(counter)).append("\n");
+                }
+                for (int counter= 2 * count + 1; counter >= count + 1; counter--){
+                    res.append("\t").append("\s".repeat(2 * count + 1 - counter)).append("o\s".repeat(counter)).append("\n");
+                }
+            } else {
+                res.append("Некорректный формат числа");
+            }
+        } else {
+            res.append("\to");
+        }
+        return res.toString();
     }
 }
