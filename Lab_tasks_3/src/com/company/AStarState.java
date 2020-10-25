@@ -13,18 +13,13 @@ import java.util.Set;
  **/
 public class AStarState
 {
-    /** This is a reference to the map that the A* algorithm is navigating. **/
-    private Map2D map;
+    /* A reference to the A* algorithm map*/
+    private final Map2D map;
 
-    /** Initialize a map for all open waypoints**/
-    private HashMap<Location, Waypoint> openHeights = new HashMap<Location, Waypoint> ();
+    private final HashMap<Location, Waypoint> openHeights = new HashMap<> ();
+    private final HashMap<Location, Waypoint> closeHeights = new HashMap<> ();
 
-    /** Initialize a map for all closed waypoints**/
-    private HashMap<Location, Waypoint> closeHeights = new HashMap<Location, Waypoint> ();
-
-    /**
-     * Initialize a new state object for the A* pathfinding algorithm to use.
-     **/
+    /*Class constructor*/
     public AStarState(Map2D map)
     {
         if (map == null)
@@ -33,98 +28,69 @@ public class AStarState
         this.map = map;
     }
 
-    /** Returns the map that the A* pathfinder is navigating. **/
+    /* Returns the A* algorithm map*/
     public Map2D getMap()
     {
         return map;
     }
 
-    /**
-     * This method scans through all open waypoints, and returns the waypoint
-     * with the minimum total cost.  If there are no open waypoints, this method
-     * returns <code>null</code>.
-     **/
+    /* Scans through all open waypoints and returns the only with the lowest cost.
+    If no waypoints found, returns null */
     public Waypoint getMinOpenWaypoint() {
-        //Return null if there are no open waypoints
         if (numOpenWaypoints() == 0){
             return null;
         }
-        //Initialize a KeySet for all open heights
         Set<Location> openHeightsKeys = openHeights.keySet();
-        //Initialize iterator for iterating through the set
         Iterator iter = openHeightsKeys.iterator();
-        //Initialize variables to store the best Waypoint' cost and the best Waypoint itself
         Waypoint best = null;
         float bestCost = Float.MAX_VALUE;
-        //Iterates through all open waypoints
         while (iter.hasNext()){
             Location location = (Location)iter.next();
             Waypoint waypoint = openHeights.get(location);
             float waypointTotalCost = waypoint.getTotalCost();
-            //If the total cost of the waypoint is lower than of stored one
-            //Replace the values
             if (waypointTotalCost < bestCost){
                 best = openHeights.get(location);
                 bestCost = waypointTotalCost;
             }
         }
-        //Returns the best waypoint
         return best;
     }
 
-    /**
-     * This method adds a waypoint to (or potentially updates a waypoint already
-     * in) the "open waypoints" collection.  If there is not already an open
-     * waypoint at the new waypoint's location then the new waypoint is simply
-     * added to the collection.  However, if there is already a waypoint at the
-     * new waypoint's location, the new waypoint replaces the old one <em>only
-     * if</em> the new waypoint's "previous cost" value is less than the current
-     * waypoint's "previous cost" value.
-     **/
-    public boolean addOpenWaypoint(Waypoint newWP)
+    /* Adds or replace a waypoint in the collection if there is no open waypoint at the current location
+    * or if old one have bigger cost than the current one*/
+    public boolean addOpenWaypoint(Waypoint newWayPoint)
     {
-        // Finds the location of the new waypoint.
-        Location location = newWP.getLocation();
-        // Checks to see if there is already an open waypoint at the new location.
+        Location location = newWayPoint.getLocation();
         if (openHeights.containsKey(location))
         {
-            // If true, checks to see if the waypoint's previous cost is less than
-            // the current waypoint's previous cost value.
             Waypoint current_waypoint = openHeights.get(location);
-            if (newWP.getPreviousCost() < current_waypoint.getPreviousCost())
+            if (newWayPoint.getPreviousCost() < current_waypoint.getPreviousCost())
             {
-                // Replace if true
-                openHeights.put(location, newWP);
+                openHeights.put(location, newWayPoint);
                 return true;
             }
             return false;
         }
-        // If there is no open waypoint at the location
-        openHeights.put(location, newWP);
+        /* If there is no open waypoints*/
+        openHeights.put(location, newWayPoint);
         return true;
     }
 
 
-    /** Returns the current number of open waypoints. **/
+    /* Returns the current number of open waypoints */
     public int numOpenWaypoints() {
         return openHeights.size();
     }
 
 
-    /**
-     * This method moves the waypoint at the specified location from the
-     * open list to the closed list.
-     **/
+    /* Moves a waypoint to the "closed" list*/
     public void closeWaypoint(Location loc)
     {
         Waypoint waypoint = openHeights.remove(loc);
         closeHeights.put(loc, waypoint);
     }
 
-    /**
-     * Returns true if the collection of closed waypoints contains a waypoint
-     * for the specified location.
-     **/
+    /* Checks if location is closed*/
     public boolean isLocationClosed(Location loc)
     {
         return closeHeights.containsKey(loc);
