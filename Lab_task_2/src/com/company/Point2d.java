@@ -2,9 +2,9 @@ package com.company;
 
 import java.awt.*;
 
-/*
-Двумерный класс точки
-*/
+/**
+* Двумерный класс точки
+**/
 public class Point2d{
     /*Координата Х*/
     private double xCoord;
@@ -17,7 +17,7 @@ public class Point2d{
     }
     /*Конструктор по умолчанию*/
     public Point2d(){
-        //Вызов конструктора с двумя параметрами
+        /* Вызов конструктора с двумя параметрами */
         this (0, 0);
     }
     /*Возвращение значения X*/
@@ -37,7 +37,7 @@ public class Point2d{
         yCoord = val;
     }
     /*Сравнение точек по координатам*/
-    public boolean isEqual( Point2d point2){
-        return (xCoord == point2.xCoord & yCoord == point2.yCoord);
+    public boolean isEqual( Point2d other){
+        return (this.xCoord == other.xCoord & this.yCoord == other.yCoord);
     }
 }
