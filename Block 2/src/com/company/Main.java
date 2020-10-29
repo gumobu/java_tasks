@@ -7,16 +7,16 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.println("Результат 2.1: " + repeat21(in));
-        System.out.println("Результат 2.2: " + differenceMaxMin22(in));
-        System.out.println("Результат 2.3: " + isAvgWhole23(in));
-        System.out.println("Результат 2.4: " + cumulativeSum24(in));
-        System.out.println("Результат 2.5: " + getDecimalPlaces25(in));
-        System.out.println("Результат 2.6: " + Fibonacci26(in));
-        System.out.println("Результат 2.7: " + isValid27(in));
+//        System.out.println("Результат 2.1: " + repeat21(in));
+//        System.out.println("Результат 2.2: " + differenceMaxMin22(in));
+//        System.out.println("Результат 2.3: " + isAvgWhole23(in));
+//        System.out.println("Результат 2.4: " + cumulativeSum24(in));
+//        System.out.println("Результат 2.5: " + getDecimalPlaces25(in));
+//        System.out.println("Результат 2.6: " + Fibonacci26(in));
+//        System.out.println("Результат 2.7: " + isValid27(in));
         System.out.println("Результат 2.8: " + isStrangePair28(in));
-        System.out.println("Результат 2.9:\n\tПрефикс\tСуффикс\n\t " + Arrays.toString(isPrefixOrSuffix29(in)));
-        System.out.println("Результат 2.10: " + boxSeq210(in));
+//        System.out.println("Результат 2.9:\n\tПрефикс\tСуффикс\n\t " + Arrays.toString(isPrefixOrSuffix29(in)));
+//        System.out.println("Результат 2.10: " + boxSeq210(in));
         in.close();
     }
 
@@ -109,10 +109,10 @@ public class Main {
         String string2 = scanner.nextLine();
         boolean res; //Инициализация переменной для дальнейшего возвращения
         //Сравнение элементов строки, приведенной к массиву символов
-        if (string1.charAt(0) == string2.charAt(string2.length() - 1)) {
+        if (!(string1.isBlank() && string2.isBlank())) {
             res = (string1.charAt(string1.length() - 1) == string2.charAt(0));
         } else {
-            res = false;
+            res = string1.isBlank() && string2.isBlank();
         }
         return res;
     }
