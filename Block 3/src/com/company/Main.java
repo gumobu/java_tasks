@@ -6,16 +6,16 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.println("Результат 3.1: " + solutions31(in));
-        System.out.println("Результат 3.2: " + findZip32(in));
-        System.out.println("Результат 3.3: " + checkPerfect33(in));
-        System.out.println("Результат 3.4: " + flipEndChars34(in));
-        System.out.print("Результат 3.5: " + isValidHexCode35(in));
-        System.out.println("Результат 3.6: " + same36(in));
-        System.out.println("Результат 3.7: " + isKaprekar37(in));
+//        System.out.println("Результат 3.1: " + solutions31(in));
+//        System.out.println("Результат 3.2: " + findZip32(in));
+//        System.out.println("Результат 3.3: " + checkPerfect33(in));
+//        System.out.println("Результат 3.4: " + flipEndChars34(in));
+//        System.out.print("Результат 3.5: " + isValidHexCode35(in));
+//        System.out.println("Результат 3.6: " + same36(in));
+//        System.out.println("Результат 3.7: " + isKaprekar37(in));
         System.out.println("Результат 3.8: " + longestZero38(in));
-        System.out.println("Результат 3.9: " + nextPrime39(in));
-        System.out.println("Результат 3.10: " + rightTriangle310(in));
+//        System.out.println("Результат 3.9: " + nextPrime39(in));
+//        System.out.println("Результат 3.10: " + rightTriangle310(in));
         in.close();
     }
 
@@ -171,20 +171,18 @@ public class Main {
         int bestCount = 0;
         StringBuilder res = new StringBuilder();
         char[] charArray = inputString.toCharArray();
-        for (int pos = 1; pos < inputString.length(); pos++) {
-            if (charArray[pos - 1] == charArray[pos]) {
+        for (int counter = 0; counter < charArray.length; counter++){
+            if (charArray[counter] == '0'){
                 count++;
-            } else if (bestCount < count) {
-                bestCount = count;
-            } else {
+            }
+            if (counter + 1 == charArray.length || charArray[counter] != '0'){
+                if (count > bestCount){
+                    bestCount = count;
+                }
                 count = 0;
             }
         }
-        if (bestCount > count && bestCount > 0) {
-            res.append("0".repeat(bestCount));
-        } else if (bestCount < count) {
-            System.out.println("Ага");
-            bestCount = count + 1;
+        if (bestCount > 0){
             res.append("0".repeat(bestCount));
         } else {
             res.append("Не встречено нулей в строке");
