@@ -9,16 +9,16 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.println("Результат 4.1:\n" + Bessie41(in));
-        System.out.println("Результат 4.2: " + split42(in));
-        System.out.println("Результат 4.3:\n" +  toCamelOrSnakeCase43(in));
-        System.out.println("Результат 4.4:\n" +  overtime44(in));
-        System.out.println("Результат 4.5:\n" + BMI45(in));
-        System.out.println("Результат 4.6:\n" + bugger46(in));
-        System.out.println("Результат 4.7:\n" + toStarShortHand47(in));
-        System.out.println("Результат 4.8:\n" + doesRhyme48(in));
-        System.out.println("Результат 4.9:\n" + trouble49(in));
-        System.out.println("Результат 4.10:\n" + countUniqueBooks410(in));
+//        System.out.println("Результат 4.1:\n" + Bessie41(in) + "\n<<======>>");
+//        System.out.println("Результат 4.2: " + split42(in) + "\n<<======>>");
+//        System.out.println("Результат 4.3:\n" +  toCamelOrSnakeCase43(in) + "\n<<======>>");
+//        System.out.println("Результат 4.4:\n" +  overtime44(in) + "\n<<======>>");
+//        System.out.println("Результат 4.5:\n" + BMI45(in) + "\n<<======>>");
+        System.out.println("Результат 4.6:\n" + bugger46(in) + "\n<<======>>");
+        System.out.println("Результат 4.7:\n" + toStarShortHand47(in) + "\n<<======>>");
+        System.out.println("Результат 4.8:\n" + doesRhyme48(in) + "\n<<======>>");
+        System.out.println("Результат 4.9:\n" + trouble49(in) + "\n<<======>>");
+        System.out.println("Результат 4.10:\n" + countUniqueBooks410(in) + "\n<<======>>");
         in.close();
     }
 
@@ -89,11 +89,12 @@ public class Main {
 
     public static String overtime44(Scanner scanner) {
         System.out.println("\nЗадача 4.4\nВведите начало рабочего дня, конец рабочего дня, почасовую ставку и коэффициент сверхурочной работы");
+        String data = scanner.nextLine();
         float[] dataArray = new float[4];
-        String res;
-        for (int pos = 0; pos < 4; pos++) {
-            dataArray[pos] = scanner.nextFloat();
+        for (int counter = 0; counter < 4; counter++){
+            dataArray[counter] = Float.parseFloat(data.split(" ")[counter]);
         }
+        String res;
         if (dataArray[1] <= 17) {
             res = "$" + ((dataArray[1] - dataArray[0]) * dataArray[2]);
         } else {
@@ -140,7 +141,7 @@ public class Main {
 
     public static int bugger46(Scanner scanner){
         System.out.println("Задача 4.6\nвведите число для нахождения его мультипликационного постоянства");
-        int inputNum = scanner.nextInt();
+        int inputNum = Integer.parseInt(scanner.nextLine());
         int timesCount = 0;
         while (inputNum > 9){
             timesCount++;
@@ -237,7 +238,6 @@ public class Main {
                 }
             }
         }
-        System.out.println(uniqueBooks);
         return uniqueBooks.size();
     }
 }
