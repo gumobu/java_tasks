@@ -4,18 +4,18 @@ import com.sun.source.tree.BreakTree;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 //        System.out.println("Результат 5.1:\n" + Arrays.toString(encrypt51(in)));
-//        System.out.println("Результат 5.2: " + canMove52(in));
 //        System.out.println("Результат 5.3: " + canComplete53(in));
 //        System.out.println("Результат 5.4: " + sumDigProd54(in));
-//        System.out.println("Результат 5.5: " + sameVowelGroup55(in));
-//        System.out.println("Результат 5.6: " + validateCard56(in));
-//        System.out.println("Результат 5.7:\n" + numToEng57(in));
-//        System.out.println("Результат 5.9:\n" + correctTitle59(in));
+        System.out.println("Результат 5.5: " + sameVowelGroup55(in));
+        System.out.println("Результат 5.6: " + validateCard56(in));
+        System.out.println("Результат 5.7:\n" + numToEng57(in));
+        System.out.println("Результат 5.9:\n" + correctTitle59(in));
         System.out.println("Результат 5.10:\n" + hexLattice510(in));
         in.close();
     }
@@ -47,11 +47,6 @@ public class Main {
         }
         finalArray[1] = res.toString();
         return finalArray;
-    }
-
-    public static boolean canMove52(Scanner scanner) {
-        System.out.println("Задача 5.2\nВведите название фигуры, начальную и конечную позиции, разделяя их пробелом");
-        return false;
     }
 
     public static boolean canComplete53(Scanner scanner) {
@@ -93,18 +88,38 @@ public class Main {
         return sum;
     }
 
-//    public static String sameVowelGroup55(Scanner scanner){
-//        System.out.println("Задача 5.5\nВведите слова для поиска одинаковых гласных, разделяя их пробелами");
-//        String[] words = scanner.nextLine().trim().split(" ");
-//        ArrayList<String> res = new ArrayList<>();
-//        res.add(words[0]);
-//        for (int count = 1; count < words.length; count++){
-//            if (){
-//
-//            }
-//        }
-//        return res.toString();
-//    }
+    public static String sameVowelGroup55(Scanner scanner){
+        System.out.println("Задача 5.7\nВведите слова для проверки " +
+                "на наличие тех же гласных, что и первое слово");
+        String inputString = scanner.nextLine();
+        String[] splitted = inputString.split(" ");
+        String[] vowels = new String[splitted.length];
+        ArrayList<String> res = new ArrayList<>();
+        for (int counter = 0; counter < splitted.length; counter++){
+            HashSet<Character> unique = new HashSet<>();
+            vowels[counter] = splitted[counter].replaceAll("[^aeiouAEIOU]", "").toLowerCase();
+            for (char letter:vowels[counter].toCharArray()){
+                unique.add(letter);
+            }
+            vowels[counter] = "";
+            ArrayList<Character> sorted = new ArrayList<>(unique);
+            Collections.sort(sorted);
+            for (Character letter: sorted) {
+                vowels[counter] += letter;
+            }
+        }
+        if (vowels.length > 1){
+            res.add(splitted[0]);
+            for (int counter = 1; counter < vowels.length; counter++){
+                if (vowels[counter].equals(vowels[0])){
+                    res.add(splitted[counter]);
+                }
+            }
+        } else {
+            res.add(splitted[0]);
+        }
+        return res.toString();
+    }
 
     public static boolean validateCard56(Scanner scanner) {
         System.out.println("Задача 5.6\nВведите номер карты для проверки на валидность");
@@ -263,8 +278,8 @@ public class Main {
 
     public static String correctTitle59(Scanner scanner){
         System.out.println("Задача 5.9\nВведите заголовок серии для его корректного представления");
-        String inputString = scanner.nextLine();
         StringBuilder correctTitle = new StringBuilder();
+        String inputString = scanner.nextLine();
         String[] words = inputString.split(" ");
         for (String word:words) {
             if (word.contains("-")) {
