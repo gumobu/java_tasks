@@ -2,6 +2,7 @@ package com.company;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -14,10 +15,10 @@ public class Main {
 //        System.out.println("Результат 4.3:\n" +  toCamelOrSnakeCase43(in) + "\n<<======>>");
 //        System.out.println("Результат 4.4:\n" +  overtime44(in) + "\n<<======>>");
 //        System.out.println("Результат 4.5:\n" + BMI45(in) + "\n<<======>>");
-        System.out.println("Результат 4.6:\n" + bugger46(in) + "\n<<======>>");
-        System.out.println("Результат 4.7:\n" + toStarShortHand47(in) + "\n<<======>>");
-        System.out.println("Результат 4.8:\n" + doesRhyme48(in) + "\n<<======>>");
-        System.out.println("Результат 4.9:\n" + trouble49(in) + "\n<<======>>");
+//        System.out.println("Результат 4.6:\n" + bugger46(in) + "\n<<======>>");
+//        System.out.println("Результат 4.7:\n" + toStarShortHand47(in) + "\n<<======>>");
+//        System.out.println("Результат 4.8:\n" + doesRhyme48(in) + "\n<<======>>");
+//        System.out.println("Результат 4.9:\n" + trouble49(in) + "\n<<======>>");
         System.out.println("Результат 4.10:\n" + countUniqueBooks410(in) + "\n<<======>>");
         in.close();
     }
@@ -222,19 +223,14 @@ public class Main {
         String inputString = scanner.nextLine();
         String bookmark = scanner.nextLine();
         String[] books = inputString.split(bookmark); //Разбиение строки по символу-границе в массив строк
-        ArrayList uniqueBooks = new ArrayList(); //Создание пустого ArrayList для дальнейшего заполнения
-        if (inputString.indexOf(bookmark) != inputString.lastIndexOf(bookmark) &
-                inputString.length() > 2) {  //В случае если есть хотя бы два разделителя и длина строки больше двух
-            int counter = 1;
-            while (counter + 2 < books.length) {
-                if (!books[counter].isEmpty()) {
-                    for (char symbol : books[counter].toCharArray()) {
-                        if (!uniqueBooks.contains(symbol)) {
-                            uniqueBooks.add(symbol);
-                        }
+        HashSet<Character> uniqueBooks = new HashSet<>();
+        for (int counter = 1; counter < books.length; counter++) {
+            if (counter % 2 != 0) {
+                if (!books[counter].isBlank()) {
+                    char[] charArray = books[counter].toCharArray();
+                    for (char letter : charArray) {
+                        uniqueBooks.add(letter);
                     }
-                } else {
-                    counter--;
                 }
             }
         }
