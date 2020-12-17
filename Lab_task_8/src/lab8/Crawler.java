@@ -13,8 +13,7 @@ public class Crawler {
         URLDepthPair currentDepthPair = new URLDepthPair("http://ege.edu.ru/ru/");
         ArrayList<String> seenURLs = new ArrayList<String>();
         seenURLs.add(currentDepthPair.getURL());
-        
-        //�������� - ������� ������
+
         URLPool pool = new URLPool(2);
         pool.put(currentDepthPair);
         
@@ -109,7 +108,6 @@ public class Crawler {
                 System.err.println("IOException: " + e.getMessage());
                 return URLs;
             }
-            //System.out.println(line);
             if (line == null)
                 break;
             int beginIndex = 0;
